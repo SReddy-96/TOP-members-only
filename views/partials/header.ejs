@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <header>
+      <h1>Members Only</h1>
+      <ul>
+        <% if(locals.user){ %>
+        <li><a href="/">Home</a></li>
+        <li><a href="/logout">LogOut</a></li>
+        <% if(!locals.user.premium_member){ %>
+        <li><a href="/club">Join The Club</a></li>
+        <% } %> <% } %>
+
+        <li><a href="/">Home</a></li>
+        <li><a href="/signup">Sign Up</a></li>
+        <li><a href="/login">Login</a></li>
+      </ul>
+    </header>
+  </body>
+</html>

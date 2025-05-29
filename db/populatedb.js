@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS users (
   last_name VARCHAR(255) NOT NULL,
   username VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  member_status VARCHAR(255) NOT NULL,
+  premium_member BOOLEAN DEFAULT FALSE,
   admin BOOLEAN DEFAULT FALSE
 );
 
@@ -54,7 +54,6 @@ CREATE TABLE IF NOT EXISTS messages (
   user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
   date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 `;
 
     await client.query(SQL);
