@@ -6,17 +6,17 @@ const LocalStrategy = require("passport-local").Strategy;
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const user = db.getUserByUsername(username);
+      const user = await db.getUserByUsername(username);
       if (!user) {
-        return done(null, false, { message: "Incorrect username" });
+        return done(null, false, { message: "Incorrect username or password" });
       }
       const match = await bcrypt.compare(password, user.password); // using bcrypt.compare to check the password
       if (!match) {
-        // passwords do not match!
-        return done(null, false, { message: "Incorrect password" });
+        return done(null, false, { message: "Incorrect username or password" });
       }
       return done(null, user);
     } catch (err) {
+      console.error("Error during Passport LocalStrategy authentication:", err);
       return done(err);
     }
   })
@@ -30,7 +30,7 @@ passport.serializeUser((user, done) => {
 // checking the user session
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = db.getUserById(id);
+    const user = await db.getUserById(id);
     done(null, user);
   } catch (err) {
     done(err);

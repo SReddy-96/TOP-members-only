@@ -8,6 +8,7 @@ const db = require("./db/pool");
 const bcrypt = require("bcryptjs");
 const pgSession = require("connect-pg-simple")(expressSession);
 const favicon = require("serve-favicon");
+const flash = require("connect-flash");
 const indexRouter = require("./routes/indexRouter");
 const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
@@ -42,6 +43,9 @@ app.use(
     cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
   })
 );
+
+// initialise flash
+app.use(flash());
 
 // require Auth middleware
 require("./middleware/passport");

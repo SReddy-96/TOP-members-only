@@ -1,23 +1,43 @@
-const passport = require('passport')
+const passport = require("passport");
+const { body, validationResult } = require("express-validator");
 
+const notEmptyErr = "must not be empty";
+
+const validateUser = [
+  body("username").trim().notEmpty().withMessage(`Username ${notEmptyErr}`),
+  body("password").trim().notEmpty().withMessage(`Password ${notEmptyErr}`),
+];
+
+// get login form
 const getLogin = async (req, res) => {
-  // get login form
-  // shouldn't show the link if already logged in 
-  res.render("login", { title: "login" });
+  const passportErrors = req.flash("error").map((msg) => ({ msg }));
+  res.render("login", {
+    title: "Login",
+    errors: passportErrors,
+  });
 };
 
 // post request
-// make sure to validate and sanitise data.
-// this can be done inside the routes create a middleware.
-
-const postLogin = (req,res)=>{
+const postLogin = [
+  validateUser,
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("login", {
+        title: "Login",
+        errors: errors.array(),
+      });
+    }
+    next();
+  },
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/",
-  })
-}
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+];
 
 module.exports = {
   getLogin,
-  postLogin
+  postLogin,
 };

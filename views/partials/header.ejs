@@ -12,14 +12,14 @@
       <ul>
         <% if(locals.user){ %>
         <li><a href="/">Home</a></li>
-        <li><a href="/logout">LogOut</a></li>
+        <li><a href="/log-out">Log-out</a></li>
         <% if(!locals.user.premium_member){ %>
         <li><a href="/club">Join The Club</a></li>
-        <% } %> <% } %>
-
+        <% } %> <% } else { %>
         <li><a href="/">Home</a></li>
         <li><a href="/signup">Sign Up</a></li>
         <li><a href="/login">Login</a></li>
+        <% } %>
       </ul>
     </header>
   </body>
