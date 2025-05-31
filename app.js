@@ -13,6 +13,7 @@ const indexRouter = require("./routes/indexRouter");
 const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
 const clubRouter = require("./routes/clubRouter");
+const messageRouter = require("./routes/messageRouter");
 
 const app = express();
 
@@ -53,11 +54,18 @@ require("./middleware/passport");
 // initialising the session
 app.use(passport.session());
 
+// middleware to store the user to locals
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
 // Routes
 app.use("/", indexRouter);
 app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/club", clubRouter);
+app.use("/newMessage", messageRouter);
 
 // logout route
 app.get("/log-out", (req, res, next) => {

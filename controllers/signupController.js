@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const db = require("../db/queries");
 const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 
 const alphaErr = "must only contain letters.";
 const notEmptyErr = "must not be empty";
@@ -89,8 +90,17 @@ const postSignup = [
         });
       }
       const hashedPassword = await bcrypt.hash(password, 10);
-      await db.insertUser(first_name, last_name, username, hashedPassword);
-      res.redirect("/");
+      const newUser = await db.insertUser(
+        first_name,
+        last_name,
+        username,
+        hashedPassword
+      );
+      // Automatically log in the user
+      req.login(newUser, (err) => {
+        if (err) return next(err);
+        res.redirect("/");
+      });
     } catch (error) {
       console.error(error);
       next(error);

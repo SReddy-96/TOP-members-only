@@ -10,10 +10,10 @@
     <header>
       <h1>Members Only</h1>
       <ul>
-        <% if(locals.user){ %>
+        <% if(user){ %>
         <li><a href="/">Home</a></li>
         <li><a href="/log-out">Log-out</a></li>
-        <% if(!locals.user.premium_member){ %>
+        <% if(!user.premium_member){ %>
         <li><a href="/club">Join The Club</a></li>
         <% } %> <% } else { %>
         <li><a href="/">Home</a></li>
@@ -22,5 +22,3 @@
         <% } %>
       </ul>
     </header>
-  </body>
-</html>

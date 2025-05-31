@@ -1,0 +1,21 @@
+<%- include('partials/header', {title:title}) %>
+<main>
+  <h2>Add New Message</h2>
+
+  <div class="form-error"><%- include('partials/form-error') %></div>
+
+  <form action="/newMessage" method="post">
+    <label for="message">Message</label>
+    <textarea
+      name="message"
+      id="message"
+      cols="30"
+      rows="10"
+      required
+      placeholder="Message..."
+    ></textarea>
+    <button type="submit">Post Message</button>
+  </form>
+  <a href="/">Back</a>
+</main>
+<%- include('partials/footer') %>

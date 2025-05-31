@@ -1,9 +1,22 @@
 <%- include('partials/header', {title:title}) %>
 <main>
-  <% if (locals.user) { %>
+  <% if (user) { %>
   <h1>Welcome <%= user.first_name %> <%= user.last_name %></h1>
+  <a href="/newMessage">Add a Message</a>
   <% } else {%>
   <h1>Welcome</h1>
   <% } %>
+  <section>
+    <% messages.forEach(msg => { %>
+    <div>
+      <% if (user && (user.premium_member||msg.user_id === user.id) ){ %>
+      <h4>@<%= msg.username %></h4>
+      <% } else {%>
+      <h4>@********</h4>
+      <% } %>
+      <p><%= msg.message %></p>
+    </div>
+    <% }) %>
+  </section>
 </main>
 <%- include('partials/footer') %>

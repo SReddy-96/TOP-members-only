@@ -11,7 +11,7 @@ const getUserByUsername = async (username) => {
 
 // get user by id
 const getUserById = async (id) => {
-  const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
+  const { rows } = await pool.query("SELECT * FROM users WHERE id = $1;", [id]);
   const user = rows[0];
   return user;
 };
@@ -19,14 +19,45 @@ const getUserById = async (id) => {
 // signup
 
 const insertUser = async (first_name, last_name, username, hashedPassword) => {
-  await pool.query(
-    "insert into users (first_name, last_name, username, password) values ($1, $2, $3, $4)",
+  const newUser = await pool.query(
+    "INSERT INTO users (first_name, last_name, username, password) VALUES ($1, $2, $3, $4) RETURNING *",
     [first_name, last_name, username, hashedPassword]
   );
+  return newUser.rows[0];
+};
+
+// club
+const toggleClub = async (id) => {
+  const results = await pool.query(
+    "UPDATE users SET premium_member = true WHERE id = $1",
+    [id]
+  );
+  return results.rows[0];
+};
+
+// message
+const insertMessage = async (message, user) => {
+  await pool.query("INSERT INTO messages (message, user_id) VALUES ($1, $2);", [
+    message,
+    user.id,
+  ]);
+};
+
+const getAllMessages = async () => {
+  const result = await pool.query(`
+    SELECT messages.*, users.username
+    FROM messages
+    JOIN users ON messages.user_id = users.id
+    ORDER BY messages.date DESC
+  `);
+  return result.rows;
 };
 
 module.exports = {
   getUserByUsername,
   getUserById,
   insertUser,
+  toggleClub,
+  insertMessage,
+  getAllMessages,
 };
