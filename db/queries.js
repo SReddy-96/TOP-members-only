@@ -53,6 +53,19 @@ const getAllMessages = async () => {
   return result.rows;
 };
 
+const deleteMessage = async (id) => {
+  await pool.query("DELETE FROM messages WHERE id=$1", [id]);
+};
+
+// admin
+const toggleAdmin = async (id) => {
+  const results = await pool.query(
+    "UPDATE users SET admin = true WHERE id = $1",
+    [id]
+  );
+  return results.rows[0];
+};
+
 module.exports = {
   getUserByUsername,
   getUserById,
@@ -60,4 +73,6 @@ module.exports = {
   toggleClub,
   insertMessage,
   getAllMessages,
+  deleteMessage,
+  toggleAdmin,
 };

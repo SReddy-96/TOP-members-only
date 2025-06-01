@@ -8,7 +8,7 @@ const getIndex = async (req, res, next) => {
   try {
     const messages = await db.getAllMessages();
     res.render("index", {
-      title: "Members Only",
+      title: "InnerCircle",
       messages: messages,
     });
   } catch (error) {
@@ -17,6 +17,25 @@ const getIndex = async (req, res, next) => {
   }
 };
 
+// admin delete message
+const deleteMessage = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      const err = new Error("Message not found");
+      err.statusCode = 404;
+      return next(err);
+    }
+    await db.deleteMessage(id);
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+};
+
+
 module.exports = {
   getIndex,
+  deleteMessage,
 };

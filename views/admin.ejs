@@ -1,0 +1,14 @@
+<%- include('partials/header', {title:title}) %>
+<main>
+  <h2>Admin Sign in</h2>
+
+  <div class="form-error"><%- include('partials/form-error') %></div>
+
+  <form action="/admin" method="post">
+    <label for="admin_password">Admin Sign in</label>
+    <input type="password" name="admin_password" id="admin_password" required />
+    <button type="submit">Admin Sign in</button>
+  </form>
+  <a href="/">Back</a>
+</main>
+<%- include('partials/footer') %>

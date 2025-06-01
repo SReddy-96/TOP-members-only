@@ -14,6 +14,7 @@ const loginRouter = require("./routes/loginRouter");
 const signupRouter = require("./routes/signupRouter");
 const clubRouter = require("./routes/clubRouter");
 const messageRouter = require("./routes/messageRouter");
+const adminRouter = require("./routes/adminRouter");
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/club", clubRouter);
 app.use("/newMessage", messageRouter);
+app.use("/admin", adminRouter);
 
 // logout route
 app.get("/log-out", (req, res, next) => {
