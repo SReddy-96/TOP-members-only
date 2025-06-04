@@ -16,7 +16,17 @@ const postAdmin = [
   async (req, res, next) => {
     try {
       const { admin_password } = req.body;
+
+      // check if user is logged in
       const { user } = req;
+      if (!user) {
+        return res.status(400).render("admin", {
+          title: "Admin Sign in ",
+          errors: [{ msg: "Please log in first" }],
+        });
+      }
+
+      // Check password validate and sanitise
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).render("admin", {
@@ -24,6 +34,8 @@ const postAdmin = [
           errors: errors.array(),
         });
       }
+
+      // check password
       if (admin_password === process.env.ADMIN_PASSWORD) {
         await db.toggleAdmin(user.id);
         res.redirect("/");
@@ -41,7 +53,12 @@ const postAdmin = [
 ];
 
 const getAdmin = (req, res) => {
-  res.render("admin", { title: "Admin Sign in" });
+  const { user } = req;
+  if (user.admin) {
+    res.redirect("/");
+  } else {
+    res.render("admin", { title: "Admin Sign in" });
+  }
 };
 
 module.exports = {

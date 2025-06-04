@@ -4,7 +4,7 @@
 
   <div class="form-error"><%- include('partials/form-error') %></div>
 
-  <form action="/signup" method="POST">
+  <form class="forms" action="/signup" method="POST">
     <label for="first_name">First Name</label>
     <input type="text" name="first_name" id="first_name" required />
     <label for="last_name">Last Name</label>
@@ -20,7 +20,7 @@
       id="confirm_password"
       required
     />
-    <button type="submit">Sign Up</button>
+    <button class="button-primary" type="submit">Sign Up</button>
   </form>
   <a href="/">Back</a>
 </main>

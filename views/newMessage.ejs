@@ -4,17 +4,17 @@
 
   <div class="form-error"><%- include('partials/form-error') %></div>
 
-  <form action="/newMessage" method="post">
-    <label for="message">Message</label>
+  <form class="new-message-form" action="/newMessage" method="post">
+    <label for="message"></label>
     <textarea
       name="message"
       id="message"
       cols="30"
-      rows="10"
+      rows="5"
       required
       placeholder="Message..."
     ></textarea>
-    <button type="submit">Post Message</button>
+    <button class="button-primary" type="submit">Post Message</button>
   </form>
   <a href="/">Back</a>
 </main>

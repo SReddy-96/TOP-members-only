@@ -1,7 +1,17 @@
 <footer>
     <div class="footer-content">
-        <p>&copy; <%= new Date().getFullYear() %> Members Only. All rights reserved.</p>
+        <p>&copy; <%= new Date().getFullYear() %> InnerCircle. All rights reserved.</p>
 </footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const burger = document.querySelector('.burger-menu');
+    const links = document.querySelector('.header-links');
+    burger.addEventListener('click', function() {
+      links.classList.toggle('open');
+    });
+  });
+</script>
 </body>
 
 </html
