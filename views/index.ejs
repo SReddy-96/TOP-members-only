@@ -1,7 +1,7 @@
 <%- include('partials/header', {title:title}) %>
 <main>
   <% if (user) { %>
-  <h1>
+  <h1 class="welcome-user-title">
     Welcome <%= user.first_name %> <%= user.last_name %> <% if
     (user.premium_member) { %>
     <svg
@@ -28,7 +28,7 @@
       ></path>
     </svg>
     <% } %> <% if(user.admin){ %>
-    <span><i> - ADMIN</i></span>
+    <span><i>[ADMIN]</i></span>
     <% } %>
   </h1>
   <a class="button-primary" href="/newMessage">Add a Message</a>

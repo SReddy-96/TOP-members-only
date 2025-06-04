@@ -13,8 +13,8 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Open Sans", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   height: 100%;
 }
 
@@ -119,7 +119,7 @@ main {
   gap: 1rem;
 }
 
-main > h1 {
+.welcome-user-title {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -228,6 +228,7 @@ i {
 
 .landing {
   padding: 2rem;
+  font-weight: 500;
 }
 
 .welcome-page {
@@ -342,5 +343,9 @@ textarea {
 
   .welcome-title {
     font-size: 60px;
+  }
+
+  .welcome-user-title {
+    flex-direction: column;
   }
 }
